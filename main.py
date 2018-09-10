@@ -72,10 +72,10 @@ def exit(signal, frame):
 
 # Main program -------------
 if __name__ == '__main__':
-	sense.stick.direction_up = joystick_move_up
-	sense.stick.direction_down = joystick_move_down
-	sense.stick.direction_left = joystick_move_left
-	sense.stick.direction_right = joystick_move_right
+	sense.stick.direction_up = joystick_move
+	sense.stick.direction_down = joystick_move
+	sense.stick.direction_left = joystick_move
+	sense.stick.direction_right = joystick_move
 	sense.stick.direction_middle = joystick_move_middle
 
 	c.color_count = len(c.color_presets)
