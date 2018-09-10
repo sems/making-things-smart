@@ -3,7 +3,6 @@ from sense_hat import SenseHat
 from time import sleep
 from set_color import set_color
 from set_message import set_message
-from colors import color_presets
 
 sense = SenseHat()
 sense.clear()
@@ -36,7 +35,7 @@ def exit(signal, frame):
 	print("Bye!")
 	sys.exit(0)
 
-# set_color()
+set_color()
 
 # Main program -------------
 if __name__ == '__init__':
