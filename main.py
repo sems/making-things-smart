@@ -7,11 +7,18 @@ sense.clear()
 white = (255,255,255)
 blue = (0, 0, 255)
 
-#Function
+# Functions ----------------
+def joystick_move_up:
+	sense.clear()
+def joystick_move_down:
+	sense.clear()
+def joystick_move_left:
+	sense.clear()
+def joystick_move_right:
+	sense.clear()
+def joystick_move_click:
+	sense.clear()
 
-
-#Running loop
-
+# Main program -------------
 while True:
 	sleep(0.25)
-
