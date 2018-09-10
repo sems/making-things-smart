@@ -18,7 +18,7 @@ joystick_b = 255
 joystick_index = 0
 
 # Functions ----------------
-def joystick_move_up(event):
+def joystick_move(event):
 	global mode
 	global mode_index
 	global joystick_r
@@ -27,75 +27,43 @@ def joystick_move_up(event):
 	global joystick_index
 	if event.action == "pressed":
 		if mode[mode_index] == "preset":
-			if colors.max_color_index == colors.color_index:
-				colors.color_index = colors.min_color_index
-			else:
-				colors.color_index += 1
+			if event.direction == "up" or event.direction == "right":
+				if colors.max_color_index == colors.color_index:
+					colors.color_index = colors.min_color_index
+				else:
+					colors.color_index += 1
+			elif event.direction == "down" or event.direction == "left":
+				if colors.min_color_index == colors.color_index:
+					colors.color_index = colors.max_color_index
+				else:
+					colors.color_index -= 1
 			colors.color = colors.color_presets[colors.color_index]
 			# set_color.py
-		if mode[mode_index] == "joystick":
-			if joystick_index == 0:
-				joystick_r += 1
-			if joystick_index == 1:
-				joystick_g += 1
-			if joystick_index == 2:
-				joystick_b += 1
-def joystick_move_down(event):
-	global mode
-	global mode_index
-	global joystick_r
-	global joystick_g
-	global joystick_b
-	global joystick_index
-	if event.action == "pressed":
-		if mode[mode_index] == "preset":
-			if colors.min_color_index == colors.color_index:
-				colors.color_index = colors.max_color_index
-			else:
-				colors.color_index -= 1
-			colors.color = colors.color_presets[colors.color_index]
-			# set_color.py
-		if mode[mode_index] == "joystick":
-			if joystick_index == 0:
-				joystick_r -= 1
-			if joystick_index == 1:
-				joystick_g -= 1
-			if joystick_index == 2:
-				joystick_b -= 1
-def joystick_move_left(event):
-	global mode
-	global mode_index
-	global joystick_index
-	if event.action == "pressed":
-		if mode[mode_index] == "preset":
-			if colors.min_color_index == colors.color_index:
-				colors.color_index = colors.max_color_index
-			else:
-				colors.color_index -= 1
-			colors.color = colors.color_presets[colors.color_index]
-			# set_color.py
-		if mode[mode_index] == "joystick":
-			if joystick_index == 0:
-				joystick_index = 2
-			else:
-				joystick_index -= 1
-def joystick_move_right(event):
-	global mode
-	global mode_index
-	global joystick_index
-	if event.action == "pressed":
-		if mode[mode_index] == "preset":
-			if colors.max_color_index == colors.color_index:
-				colors.color_index = colors.min_color_index
-			else:
-				colors.color_index += 1
-			colors.color = colors.color_presets[colors.color_index]
-			# set_color.py
-		if mode[mode_index] == "joystick":
-			if joystick_index == 2:
-				joystick_index = 0
-			else:
-				joystick_index += 1
+		elif mode[mode_index] == "joystick":
+			if event.direction == "up":
+				if joystick_index == 0:
+					joystick_r += 1
+				if joystick_index == 1:
+					joystick_g += 1
+				if joystick_index == 2:
+					joystick_b += 1
+			elif event.direction == "down":
+				if joystick_index == 0:
+					joystick_r -= 1
+				if joystick_index == 1:
+					joystick_g -= 1
+				if joystick_index == 2:
+					joystick_b -= 1
+			elif event.direction == "left":
+				if joystick_index == 0:
+					joystick_index = 2
+				else:
+					joystick_index -= 1
+			elif event.direction == "right":
+				if joystick_index == 2:
+					joystick_index = 0
+				else:
+					joystick_index += 1
 def joystick_move_middle(event):
 	global mode
 	global mode_index
@@ -114,10 +82,10 @@ def exit(signal, frame):
 
 # Main program -------------
 if __name__ == '__main__':
-	sense.stick.direction_up = joystick_move_up
-	sense.stick.direction_down = joystick_move_down
-	sense.stick.direction_left = joystick_move_left
-	sense.stick.direction_right = joystick_move_right
+	sense.stick.direction_up = joystick_move
+	sense.stick.direction_down = joystick_move
+	sense.stick.direction_left = joystick_move
+	sense.stick.direction_right = joystick_move
 	sense.stick.direction_middle = joystick_move_middle
 
 	colors.color_count = len(colors.color_presets)
