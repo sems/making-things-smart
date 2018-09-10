@@ -17,7 +17,7 @@ def joystick_move_left(event):
 	sense.clear()
 def joystick_move_right(event):
 	sense.clear()
-def joystick_move_click(event):
+def joystick_move_middle(event):
 	sense.clear()
 
 def clear():
@@ -34,5 +34,6 @@ if __name__ == '__init__':
 	sense.stick.direction_down = joystick_move_down
 	sense.stick.direction_left = joystick_move_left
 	sense.stick.direction_right = joystick_move_right
+	sense.stick.direction_middle = joystick_move_middle
 
 	signal.signal(signal.SIGING, exit)
