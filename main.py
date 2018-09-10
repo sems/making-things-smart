@@ -8,7 +8,8 @@ import colors
 sense = SenseHat()
 sense.clear()
 
-mode = ["preset", "joystick", "gyroscope", "voice"]
+# Color pallet (voor joystick/rgb)
+mode = ["preset", "joystick", "gyroscope", "voice", "time"]
 mode_index = 0
 
 joystick_r = 255
