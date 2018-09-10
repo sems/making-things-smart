@@ -27,19 +27,33 @@ def joystick_move_up(event):
 	global joystick_index
 	if event.action == "pressed":
 		if mode[mode_index] == "preset":
-			if colors.max_color_index == colors.color_index:
-				colors.color_index = colors.min_color_index
-			else:
-				colors.color_index += 1
+			if event.direction == "up" or event.direction == "right":
+				if colors.max_color_index == colors.color_index:
+					colors.color_index = colors.min_color_index
+				else:
+					colors.color_index += 1
+			elif event.direction == "down" or event.direction == "left":
+				if colors.min_color_index == colors.color_index:
+					colors.color_index = colors.max_color_index
+				else:
+					colors.color_index -= 1
 			colors.color = colors.color_presets[colors.color_index]
 			# set_color.py
 		if mode[mode_index] == "joystick":
-			if joystick_index == 0:
-				joystick_r += 1
-			if joystick_index == 1:
-				joystick_g += 1
-			if joystick_index == 2:
-				joystick_b += 1
+			if event.direction == "up":
+				if joystick_index == 0:
+					joystick_r += 1
+				if joystick_index == 1:
+					joystick_g += 1
+				if joystick_index == 2:
+					joystick_b += 1
+			elif event.direction == "down":
+				if joystick_index == 0:
+					joystick_r -= 1
+				if joystick_index == 1:
+					joystick_g -= 1
+				if joystick_index == 2:
+					joystick_b -= 1
 def joystick_move_down(event):
 	global mode
 	global mode_index
@@ -112,8 +126,6 @@ def exit(signal, frame):
 	print("Bye!")
 	sys.exit(0)
 
-set_color(colors.color)
-
 # Main program -------------
 if __name__ == '__main__':
 	sense.stick.direction_up = joystick_move_up
@@ -125,10 +137,12 @@ if __name__ == '__main__':
 	colors.color_count = len(colors.color_presets)
 	colors.max_color_index = colors.color_count - 1
 	colors.min_color_index = 0
+	set_color(colors.color)
 
 	signal.signal(signal.SIGINT, exit)
 	while True:
 		print("Mode: "+`mode`)
+		print("Mode: "+mode[mode_index])
 		print("Mode index: "+`mode_index`)
 		print("Joystick R: "+`joystick_r`)
 		print("Joystick G: "+`joystick_g`)
