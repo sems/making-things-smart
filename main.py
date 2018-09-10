@@ -70,8 +70,6 @@ def exit(signal, frame):
 	print("Bye!")
 	sys.exit(0)
 
-set_color(colors.color)
-
 # Main program -------------
 if __name__ == '__main__':
 	sense.stick.direction_up = joystick_move_up
