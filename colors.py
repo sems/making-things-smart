@@ -10,4 +10,5 @@ brown = (165, 42, 42)
 grey = (190, 190, 190)
 
 color_presets = [white, red, green, blue, orange, yellow, cyan, magenta, brown, grey]
-color = color_presets[0]
+color_index = 0
+color = color_presets[color_index]

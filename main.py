@@ -3,26 +3,46 @@ from sense_hat import SenseHat
 from time import sleep
 from set_color import set_color
 from set_message import set_message
-from colors import color_presets
+import colors
 
 sense = SenseHat()
 sense.clear()
 
-
-mode = ["joystick", "gyroscope", "voice"]
+mode = ["preset", "joystick", "gyroscope", "voice"]
 mode_index = 0
 
 # Functions ----------------
 def joystick_move_up(event):
-	sense.clear()
+	global mode
+	global mode_index
+	if mode[mode_index] == "preset":
+		colors.color_index += 1
+		colors.color = colors.color_presets[colors.color_index]
+		# set_color.py
 def joystick_move_down(event):
-	sense.clear()
+	global mode
+	global mode_index
+	if mode[mode_index] == "preset":
+		colors.color_index -= 1
+		colors.color = colors.color_presets[colors.color_index]
+		# set_color.py
 def joystick_move_left(event):
-	sense.clear()
+	global mode
+	global mode_index
+	if mode[mode_index] == "preset":
+		colors.color_index -= 1
+		colors.color = colors.color_presets[colors.color_index]
+		# set_color.py
 def joystick_move_right(event):
-	sense.clear()
+	global mode
+	global mode_index
+	if mode[mode_index] == "preset":
+		colors.color_index += 1
+		colors.color = colors.color_presets[colors.color_index]
+		# set_color.py
 def joystick_move_middle(event):
 	global mode
+	global mode_index
 	if event.action == "pressed":
 		mode_index += 1
 		if mode[mode_index] == "gyroscope" or mode[mode_index] == "voice":
