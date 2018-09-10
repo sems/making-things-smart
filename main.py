@@ -24,17 +24,21 @@ def joystick_move_up(event):
 	global joystick_g
 	global joystick_b
 	global joystick_index
-	if mode[mode_index] == "preset":
-		colors.color_index += 1
-		colors.color = colors.color_presets[colors.color_index]
-		# set_color.py
-	if mode[mode_index] == "joystick":
-		if joystick_index == 0:
-			joystick_r += 1
-		if joystick_index == 1:
-			joystick_g += 1
-		if joystick_index == 2:
-			joystick_b += 1
+	if event.action == "pressed":
+		if mode[mode_index] == "preset":
+			if colors.max_color_index == colors.color_index:
+				colors.color_index = colors.min_color_index
+			else:
+				colors.color_index += 1
+			colors.color = colors.color_presets[colors.color_index]
+			# set_color.py
+		if mode[mode_index] == "joystick":
+			if joystick_index == 0:
+				joystick_r += 1
+			if joystick_index == 1:
+				joystick_g += 1
+			if joystick_index == 2:
+				joystick_b += 1
 def joystick_move_down(event):
 	global mode
 	global mode_index
@@ -42,43 +46,55 @@ def joystick_move_down(event):
 	global joystick_g
 	global joystick_b
 	global joystick_index
-	if mode[mode_index] == "preset":
-		colors.color_index -= 1
-		colors.color = colors.color_presets[colors.color_index]
-		# set_color.py
-	if mode[mode_index] == "joystick":
-		if joystick_index == 0:
-			joystick_r -= 1
-		if joystick_index == 1:
-			joystick_g -= 1
-		if joystick_index == 2:
-			joystick_b -= 1
+	if event.action == "pressed":
+		if mode[mode_index] == "preset":
+			if colors.min_color_index == colors.color_index:
+				colors.color_index = colors.max_color_index
+			else:
+				colors.color_index -= 1
+			colors.color = colors.color_presets[colors.color_index]
+			# set_color.py
+		if mode[mode_index] == "joystick":
+			if joystick_index == 0:
+				joystick_r -= 1
+			if joystick_index == 1:
+				joystick_g -= 1
+			if joystick_index == 2:
+				joystick_b -= 1
 def joystick_move_left(event):
 	global mode
 	global mode_index
 	global joystick_index
-	if mode[mode_index] == "preset":
-		colors.color_index -= 1
-		colors.color = colors.color_presets[colors.color_index]
-		# set_color.py
-	if mode[mode_index] == "joystick":
-		if joystick_index == 0:
-			joystick_index = 2
-		else:
-			joystick_index -= 1
+	if event.action == "pressed":
+		if mode[mode_index] == "preset":
+			if colors.min_color_index == colors.color_index:
+				colors.color_index = colors.max_color_index
+			else:
+				colors.color_index -= 1
+			colors.color = colors.color_presets[colors.color_index]
+			# set_color.py
+		if mode[mode_index] == "joystick":
+			if joystick_index == 0:
+				joystick_index = 2
+			else:
+				joystick_index -= 1
 def joystick_move_right(event):
 	global mode
 	global mode_index
 	global joystick_index
-	if mode[mode_index] == "preset":
-		colors.color_index += 1
-		colors.color = colors.color_presets[colors.color_index]
-		# set_color.py
-	if mode[mode_index] == "joystick":
-		if joystick_index == 2:
-			joystick_index = 0
-		else:
-			joystick_index += 1
+	if event.action == "pressed":
+		if mode[mode_index] == "preset":
+			if colors.max_color_index == colors.color_index:
+				colors.color_index = colors.min_color_index
+			else:
+				colors.color_index += 1
+			colors.color = colors.color_presets[colors.color_index]
+			# set_color.py
+		if mode[mode_index] == "joystick":
+			if joystick_index == 2:
+				joystick_index = 0
+			else:
+				joystick_index += 1
 def joystick_move_middle(event):
 	global mode
 	global mode_index
@@ -105,6 +121,9 @@ if __name__ == '__main__':
 	sense.stick.direction_right = joystick_move_right
 	sense.stick.direction_middle = joystick_move_middle
 
+	colors.color_count = len(colors.color_presets)
+	colors.max_color_index = colors.color_count - 1
+	colors.min_color_index = 0
 
 	signal.signal(signal.SIGINT, exit)
 	while True:
@@ -117,4 +136,4 @@ if __name__ == '__main__':
 		print("Color preset: "+`colors.color_presets`)
 		print("Color index: "+`colors.color_index`)
 		print("Color: "+`colors.color`)
-		sleep(1)
+		sleep(0.05)
