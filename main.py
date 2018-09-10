@@ -70,12 +70,14 @@ def exit(signal, frame):
 	print("Bye!")
 	sys.exit(0)
 
+set_color(colors.color)
+
 # Main program -------------
 if __name__ == '__main__':
-	sense.stick.direction_up = joystick_move
-	sense.stick.direction_down = joystick_move
-	sense.stick.direction_left = joystick_move
-	sense.stick.direction_right = joystick_move
+	sense.stick.direction_up = joystick_move_up
+	sense.stick.direction_down = joystick_move_down
+	sense.stick.direction_left = joystick_move_left
+	sense.stick.direction_right = joystick_move_right
 	sense.stick.direction_middle = joystick_move_middle
 
 	c.color_count = len(c.color_presets)
@@ -86,7 +88,6 @@ if __name__ == '__main__':
 	signal.signal(signal.SIGINT, exit)
 	while True:
 		print("Mode: "+`mode`)
-		print("Mode: "+mode[mode_index])
 		print("Mode index: "+`mode_index`)
 		print("Joystick R: "+`j.joystick_r`)
 		print("Joystick G: "+`j.joystick_g`)
