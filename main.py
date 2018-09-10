@@ -32,18 +32,36 @@ def joystick_move(event):
 		elif mode[mode_index] == "joystick":
 			if event.direction == "up":
 				if j.joystick_index == 0:
-					j.joystick_r += 1
+					if j.joystick_r == 255:
+						j.joystick_r = 0
+					else:
+						j.joystick_r += 1
 				if j.joystick_index == 1:
-					j.joystick_g += 1
+					if j.joystick_g == 255:
+						j.joystick_g = 0
+					else:
+						j.joystick_g += 1
 				if j.joystick_index == 2:
-					j.joystick_b += 1
+					if j.joystick_b == 255:
+						j.joystick_b = 0
+					else:
+						j.joystick_b += 1
 			elif event.direction == "down":
 				if j.joystick_index == 0:
-					j.joystick_r -= 1
+					if j.joystick_r == 0:
+						j.joystick_r = 255
+					else:
+						j.joystick_r -= 1
 				if j.joystick_index == 1:
-					j.joystick_g -= 1
+					if j.joystick_g == 0:
+						j.joystick_g = 255
+					else:
+						j.joystick_g -= 1
 				if j.joystick_index == 2:
-					j.joystick_b -= 1
+					if j.joystick_b == 0:
+						j.joystick_b = 255
+					else:
+						j.joystick_b -= 1
 			elif event.direction == "left":
 				if j.joystick_index == 0:
 					j.joystick_index = 2
