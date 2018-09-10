@@ -24,7 +24,7 @@ def set_color():
 
     return new_color
 
-def set_random_color():
+def set_random_gyroscope_color():
     sense = SenseHat()
 
     acceleration = sense.get_accelerometer_raw()
@@ -50,4 +50,3 @@ def set_random_color():
         ]
         sense.set_pixels(new_color)
         return new_color
-    
