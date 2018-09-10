@@ -95,7 +95,7 @@ def exit(signal, frame):
 	print("Bye!")
 	sys.exit(0)
 
-set_color()
+set_color(colors.color)
 
 # Main program -------------
 if __name__ == '__main__':
