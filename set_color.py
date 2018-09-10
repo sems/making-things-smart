@@ -27,18 +27,27 @@ def set_color():
 def set_random_color():
     sense = SenseHat()
 
-    x = random.choice(colors.color_presets)
-    new_color = [
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x
-    ]
+    acceleration = sense.get_accelerometer_raw()
+    x = acceleration['x']
+    y = acceleration['y']
+    z = acceleration['z']
 
-    sense.set_pixels(new_color)
+    x = abs(x)
+    y = abs(y)
+    z = abs(z)
 
-    return new_color
+    if x > 1 or y > 1 or z > 1:
+        x = random.choice(c.color_presets)
+        new_color = [
+            x, x, x, x, x, x, x, x,
+            x, x, x, x, x, x, x, x,
+            x, x, x, x, x, x, x, x,
+            x, x, x, x, x, x, x, x,
+            x, x, x, x, x, x, x, x,
+            x, x, x, x, x, x, x, x,
+            x, x, x, x, x, x, x, x,
+            x, x, x, x, x, x, x, x
+        ]
+        sense.set_pixels(new_color)
+        return new_color
+    
