@@ -1,6 +1,7 @@
 import signal
 from sense_hat import SenseHat
-from time from sleep
+from time import sleep
+from set_color import set_color
 
 sense = SenseHat()
 sense.clear()
@@ -38,6 +39,8 @@ def exit(signal, frame):
 	print("Bye!")
 	sys.exit(0)
 
+set_color()
+
 # Main program -------------
 if __name__ == '__init__':
 	sense.stick.direction_up = joystick_move_up
@@ -45,5 +48,6 @@ if __name__ == '__init__':
 	sense.stick.direction_left = joystick_move_left
 	sense.stick.direction_right = joystick_move_right
 	sense.stick.direction_middle = joystick_move_middle
+
 
 	signal.signal(signal.SIGING, exit)
