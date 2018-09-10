@@ -28,7 +28,6 @@ def joystick_move(event):
 				else:
 					c.color_index -= 1
 			c.color = c.color_presets[c.color_index]
-			# set_color.py
 		elif mode[mode_index] == "joystick":
 			if event.direction == "up":
 				if j.joystick_index == 0:
@@ -72,6 +71,41 @@ def joystick_move(event):
 					j.joystick_index = 0
 				else:
 					j.joystick_index += 1
+			c.color = (j.joystick_r, j.joystick_g, j.joystick_b)
+	elif event.action == "held" and mode[mode_index] == "joystick":
+		if event.direction == "up":
+			if j.joystick_index == 0:
+				if j.joystick_r == 255:
+					j.joystick_r = 0
+				else:
+					j.joystick_r += 1
+			if j.joystick_index == 1:
+				if j.joystick_g == 255:
+					j.joystick_g = 0
+				else:
+					j.joystick_g += 1
+			if j.joystick_index == 2:
+				if j.joystick_b == 255:
+					j.joystick_b = 0
+				else:
+					j.joystick_b += 1
+		elif event.direction == "down":
+			if j.joystick_index == 0:
+				if j.joystick_r == 0:
+					j.joystick_r = 255
+				else:
+					j.joystick_r -= 1
+			if j.joystick_index == 1:
+				if j.joystick_g == 0:
+					j.joystick_g = 255
+				else:
+					j.joystick_g -= 1
+			if j.joystick_index == 2:
+				if j.joystick_b == 0:
+					j.joystick_b = 255
+				else:
+					j.joystick_b -= 1
+		c.color = (j.joystick_r, j.joystick_g, j.joystick_b)
 	set_color()
 def joystick_move_middle(event):
 	global mode, mode_index
@@ -79,6 +113,13 @@ def joystick_move_middle(event):
 		mode_index += 1
 		if mode[mode_index] == "gyroscope" or mode[mode_index] == "voice":
 			mode_index = 0
+		if mode[mode_index] == "preset":
+			c.color = c.color_presets[c.color_index]
+			set_color()
+		elif mode[mode_index] == "joystick":
+			j.joystick_index = 0
+			c.color = (j.joystick_r, j.joystick_g, j.joystick_b)
+			set_color()
 
 def clear():
 	sense.clear()
