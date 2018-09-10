@@ -3,10 +3,7 @@ from sense_hat import SenseHat
 from time import sleep
 from set_color import set_color
 from set_message import set_message
-<<<<<<< HEAD
-=======
 import colors
->>>>>>> 7834e6c4faaf610dd8e34344fae006230763c401
 
 sense = SenseHat()
 sense.clear()
