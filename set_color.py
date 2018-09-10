@@ -1,7 +1,7 @@
 from sense_hat import SenseHat
 import time
 import random
-import colors
+import colors as c
 
 def set_color():
     sense = SenseHat()
@@ -9,7 +9,7 @@ def set_color():
     # x = random.choice(colors.color_presets)
     # old_color_index = colors.color_presets.index(old_color)
     # x = colors.color_presets[old_color_index + 1]
-    x = colors.color
+    x = c.color
     new_color = [
         x, x, x, x, x, x, x, x,
         x, x, x, x, x, x, x, x,

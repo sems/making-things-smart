@@ -13,6 +13,6 @@ color_count = 10
 max_color_index = 9
 min_color_index = 0
 
-color_presets = [white, red, green, blue, orange, yellow, cyan, magenta, brown, grey]
+color_presets = [white, red, green, blue, orange, grey, yellow, cyan, magenta, brown]
 color_index = 0
 color = color_presets[0]

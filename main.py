@@ -3,70 +3,60 @@ from sense_hat import SenseHat
 from time import sleep
 from set_color import set_color
 from set_message import set_message
-import colors
+import colors as c
+import joystick as j
 
 sense = SenseHat()
 sense.clear()
 
-# Color pallet (voor joystick/rgb)
 mode = ["preset", "joystick", "gyroscope", "voice", "time"]
 mode_index = 0
 
-joystick_r = 255
-joystick_g = 255
-joystick_b = 255
-joystick_index = 0
-
 # Functions ----------------
 def joystick_move(event):
-	global mode
-	global mode_index
-	global joystick_r
-	global joystick_g
-	global joystick_b
-	global joystick_index
+	global mode, mode_index
 	if event.action == "pressed":
 		if mode[mode_index] == "preset":
 			if event.direction == "up" or event.direction == "right":
-				if colors.max_color_index == colors.color_index:
-					colors.color_index = colors.min_color_index
+				if c.max_color_index == c.color_index:
+					c.color_index = c.min_color_index
 				else:
-					colors.color_index += 1
+					c.color_index += 1
 			elif event.direction == "down" or event.direction == "left":
-				if colors.min_color_index == colors.color_index:
-					colors.color_index = colors.max_color_index
+				if c.min_color_index == c.color_index:
+					c.color_index = c.max_color_index
 				else:
-					colors.color_index -= 1
-			colors.color = colors.color_presets[colors.color_index]
+					c.color_index -= 1
+			c.color = c.color_presets[c.color_index]
 			# set_color.py
 		elif mode[mode_index] == "joystick":
 			if event.direction == "up":
-				if joystick_index == 0:
-					joystick_r += 1
-				if joystick_index == 1:
-					joystick_g += 1
-				if joystick_index == 2:
-					joystick_b += 1
+				if j.joystick_index == 0:
+					j.joystick_r += 1
+				if j.joystick_index == 1:
+					j.joystick_g += 1
+				if j.joystick_index == 2:
+					j.joystick_b += 1
 			elif event.direction == "down":
-				if joystick_index == 0:
-					joystick_r -= 1
-				if joystick_index == 1:
-					joystick_g -= 1
-				if joystick_index == 2:
-					joystick_b -= 1
+				if j.joystick_index == 0:
+					j.joystick_r -= 1
+				if j.joystick_index == 1:
+					j.joystick_g -= 1
+				if j.joystick_index == 2:
+					j.joystick_b -= 1
 			elif event.direction == "left":
-				if joystick_index == 0:
-					joystick_index = 2
+				if j.joystick_index == 0:
+					j.joystick_index = 2
 				else:
-					joystick_index -= 1
+					j.joystick_index -= 1
 			elif event.direction == "right":
-				if joystick_index == 2:
-					joystick_index = 0
+				if j.joystick_index == 2:
+					j.joystick_index = 0
 				else:
-					joystick_index += 1
+					j.joystick_index += 1
+	set_color()
 def joystick_move_middle(event):
-	global mode
-	global mode_index
+	global mode, mode_index
 	if event.action == "pressed":
 		mode_index += 1
 		if mode[mode_index] == "gyroscope" or mode[mode_index] == "voice":
@@ -88,9 +78,9 @@ if __name__ == '__main__':
 	sense.stick.direction_right = joystick_move
 	sense.stick.direction_middle = joystick_move_middle
 
-	colors.color_count = len(colors.color_presets)
-	colors.max_color_index = colors.color_count - 1
-	colors.min_color_index = 0
+	c.color_count = len(c.color_presets)
+	c.max_color_index = c.color_count - 1
+	c.min_color_index = 0
 	set_color()
 
 	signal.signal(signal.SIGINT, exit)
@@ -98,11 +88,11 @@ if __name__ == '__main__':
 		print("Mode: "+`mode`)
 		print("Mode: "+mode[mode_index])
 		print("Mode index: "+`mode_index`)
-		print("Joystick R: "+`joystick_r`)
-		print("Joystick G: "+`joystick_g`)
-		print("Joystick B: "+`joystick_b`)
-		print("Joystick index: "+`joystick_index`)
-		print("Color preset: "+`colors.color_presets`)
-		print("Color index: "+`colors.color_index`)
-		print("Color: "+`colors.color`)
+		print("Joystick R: "+`j.joystick_r`)
+		print("Joystick G: "+`j.joystick_g`)
+		print("Joystick B: "+`j.joystick_b`)
+		print("Joystick index: "+`j.joystick_index`)
+		print("Color preset: "+`c.color_presets`)
+		print("Color index: "+`c.color_index`)
+		print("Color: "+`c.color`)
 		sleep(0.05)
