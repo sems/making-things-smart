@@ -137,13 +137,17 @@ def joystick_move_middle(event):
 		elif mode[mode_index] == "time":
 			try:
 				execfile('set_nightlight.py')
-			except SystemExit:
-				print(bcolors.ERROR+"sys.exit was called within set_nightlight.py"+bcolors.ENDC)
+			except SystemExit as e:
+				if e.code == 255:
+					print(bcolors.ERROR+"sys.exit was called within set_nightlight.py"+bcolors.ENDC)
+				else:
+					sys.exit()
 
 def clear():
 	sense.clear()
 
 def exit(signal, frame):
+	mode_index = 0
 	clear()
 	print(bcolors.OKGREEN+"Bye!"+bcolors.ENDC)
 	sys.exit(0)
@@ -186,6 +190,9 @@ if __name__ == '__main__':
 		elif mode[mode_index] == "time":
 			try:
 				execfile('set_nightlight.py')
-			except SystemExit:
-				print(bcolors.ERROR+"sys.exit was called within set_nightlight.py"+bcolors.ENDC)
+			except SystemExit as e:
+				if e.code == 1:
+					print(bcolors.ERROR+"sys.exit was called within set_nightlight.py"+bcolors.ENDC)
+				else:
+					sys.exit()
 		sleep(0.05)

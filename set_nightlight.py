@@ -19,7 +19,7 @@ try:
     r = requests.get(zwolle)
 except:
     print("Error when getting request!")
-    sys.exit()
+    sys.exit(255)
 parsed = json.loads(r.content)
 results = parsed['results']
 #print formated json data
