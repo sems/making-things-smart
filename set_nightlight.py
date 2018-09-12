@@ -16,11 +16,15 @@ zwolle = "https://api.sunrise-sunset.org/json?lat=52.5055809&lng=6.0905981&date=
 sydney = "https://api.sunrise-sunset.org/json?lat=-33.8688197&lng=151.2092955&date=today&formatted=0"
 san = "https://api.sunrise-sunset.org/json?lat=37.7749295&lng=-122.4194155&date=today&formatted=0"
 
-r = requests.get(zwolle)
+try:
+    r = requests.get(zwolle)
+except:
+    print("Error when getting request!")
+    sys.exit(255)
 parsed = json.loads(r.content)
 results = parsed['results']
 #print formated json data
-#print(json.dumps(parsed, indent=4, sort_keys=True))
+print(json.dumps(parsed, indent=4, sort_keys=True)) ## Comment this line
 
 # Functions
 # @staticmethod
