@@ -49,4 +49,5 @@ def set_random_gyroscope_color():
             x, x, x, x, x, x, x, x
         ]
         sense.set_pixels(new_color)
+        c.color = new_color
         return new_color
