@@ -3,7 +3,6 @@ import os, sys, signal
 import datetime
 from sense_hat import SenseHat
 
-<<<<<<< Updated upstream
 print("Content-type: text/plain\n")
 
 print("een python CGI script");
@@ -13,9 +12,6 @@ print("Einde script")
 
 sense = SenseHat()
 sense.clear([255, 255, 255])
-=======
-
->>>>>>> Stashed changes
 
 # Arguments
 verbose = False

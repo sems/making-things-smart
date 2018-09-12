@@ -34,4 +34,3 @@ while True:
     pixels = [(scale(r), scale(g), scale(b)) for r, g, b in pixels]
     sense.set_pixels(pixels)
     sleep(0.04)
-

@@ -10,7 +10,7 @@ import joystick as j
 sense = SenseHat()
 sense.clear()
 
-mode = ["preset", "joystick", "gyroscope", "time", "voice", "music"]
+mode = ["preset", "joystick", "gyroscope", "time", "rainbow", "hue", "voice", "music"]
 mode_index = 0
 
 tempDebug = True
@@ -201,4 +201,6 @@ if __name__ == '__main__':
 						print(bcolors.ERROR+"sys.exit was called within set_nightlight.py"+bcolors.ENDC)
 				else:
 					sys.exit()
+		elif mode[mode_index] == "rainbow":
+			execfile('hue_rainbow.py')
 		sleep(0.05)
