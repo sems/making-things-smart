@@ -9,10 +9,8 @@ import joystick as j
 sense = SenseHat()
 sense.clear()
 
-mode = ["preset", "joystick", "gyroscope", "voice", "time"]
+mode = ["preset", "joystick", "gyroscope", "time", "voice", "music"]
 mode_index = 0
-
-gyroscope_check = False
 
 # Functions ----------------
 def joystick_move(event):
@@ -113,7 +111,7 @@ def joystick_move_middle(event):
 	global mode, mode_index, gyroscope_check
 	if event.action == "pressed":
 		mode_index += 1
-		if mode[mode_index] == "time" or mode[mode_index] == "voice":
+		if mode[mode_index] == "voice" or mode[mode_index] == "music":
 			mode_index = 0
 		if mode[mode_index] == "preset":
 			c.color = c.color_presets[c.color_index]
@@ -123,7 +121,9 @@ def joystick_move_middle(event):
 			c.color = (j.joystick_r, j.joystick_g, j.joystick_b)
 			set_color()
 		elif mode[mode_index] == "gyroscope":
-			gyroscope_check = True
+			set_random_gyroscope_color()
+		elif mode[mode_index] == "time":
+			execfile("set_nightlight.py")
 
 def clear():
 	sense.clear()
@@ -157,6 +157,8 @@ if __name__ == '__main__':
 		print("Color preset: "+`c.color_presets`)
 		print("Color index: "+`c.color_index`)
 		print("Color: "+`c.color`)
-		if gyroscope_check == True:
+		if mode[mode_index] == "gyroscope":
 			set_random_gyroscope_color()
+		elif mode[mode_index] == "time":
+			execfile("set_nightlight.py")
 		sleep(0.05)
