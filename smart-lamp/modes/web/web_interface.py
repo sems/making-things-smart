@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import os, sys, signal
 import datetime
-from sense_hat import SenseHat
+import variables.colors as c
 
 print("Content-type: text/plain\n")
 
@@ -9,9 +9,6 @@ print("een python CGI script");
 print(datetime.datetime.now())
 
 print("Einde script")
-
-sense = SenseHat()
-sense.clear([255, 255, 255])
 
 # Arguments
 verbose = False
@@ -23,19 +20,7 @@ def main():
     if len(sys.argv) > 1:
         while True:
             x = sys.argv[1]
-
-            new_color = [
-                x, x, x, x, x, x, x, x,
-                x, x, x, x, x, x, x, x,
-                x, x, x, x, x, x, x, x,
-                x, x, x, x, x, x, x, x,
-                x, x, x, x, x, x, x, x,
-                x, x, x, x, x, x, x, x,
-                x, x, x, x, x, x, x, x,
-                x, x, x, x, x, x, x, x
-            ]
-
-            sense.set_pixels(new_color)
+            c.color = x
 
 
 # Parse arguments

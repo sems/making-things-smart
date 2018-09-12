@@ -6,7 +6,7 @@
 	<body>
 		<?php
 			if($_GET) {
-				exec('python /home/pi/making-things-smart/web_interface.py '.$_GET['data']);
+				exec('python /home/pi/making-things-smart/smart-lamp/web_interface.py '.$_GET['data']);
 			}
 		?>
 		<form action="/sense-hat-set-color.php" name="sense" method="get">
