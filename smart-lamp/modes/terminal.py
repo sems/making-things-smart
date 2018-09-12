@@ -1,7 +1,7 @@
 #!/use/bin/python
 import sys
 from sense_hat import SenseHat
-from colors import *
+from variables.colors import *
 
 
 def set_color_terminal():

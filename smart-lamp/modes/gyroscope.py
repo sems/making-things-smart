@@ -18,4 +18,4 @@ def set_random_gyroscope_color():
     if x > 1 or y > 1 or z > 1:
         x = random.choice(c.color_presets)
         c.color = x
-        return new_color
+        return x

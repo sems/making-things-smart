@@ -3,6 +3,10 @@ from sense_hat import SenseHat
 from time import sleep
 
 from libs.set_color import *
+
+from modes.gyroscope import *
+from modes.terminal import *
+
 import variables.colors as c
 import variables.joystick as j
 
@@ -137,7 +141,7 @@ def joystick_move_middle(event):
 			set_random_gyroscope_color()
 		elif mode[mode_index] == "time":
 			try:
-				execfile('set_nightlight.py')
+				execfile('modes/sun.py')
 			except SystemExit as e:
 				if e.code == 255:
 					if tempDebug:
@@ -191,9 +195,10 @@ if __name__ == '__main__':
 			print(bcolors.WARNING+"Color: "+bcolors.ENDC+`c.color`)
 		if mode[mode_index] == "gyroscope":
 			set_random_gyroscope_color()
+			set_color()
 		elif mode[mode_index] == "time":
 			try:
-				execfile('set_nightlight.py')
+				execfile('modes/sun.py')
 			except SystemExit as e:
 				if e.code == 1:
 					if tempDebug:
@@ -201,5 +206,5 @@ if __name__ == '__main__':
 				else:
 					sys.exit()
 		elif mode[mode_index] == "rainbow":
-			execfile('hue_rainbow.py')
+			execfile('modes/rainbow.py')
 		sleep(0.05)

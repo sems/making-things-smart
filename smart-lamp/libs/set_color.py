@@ -23,31 +23,3 @@ def set_color():
     sense.set_pixels(new_color)
 
     return new_color
-
-def set_random_gyroscope_color():
-    sense = SenseHat()
-
-    acceleration = sense.get_accelerometer_raw()
-    x = acceleration['x']
-    y = acceleration['y']
-    z = acceleration['z']
-
-    x = abs(x)
-    y = abs(y)
-    z = abs(z)
-
-    if x > 1 or y > 1 or z > 1:
-        x = random.choice(c.color_presets)
-        new_color = [
-            x, x, x, x, x, x, x, x,
-            x, x, x, x, x, x, x, x,
-            x, x, x, x, x, x, x, x,
-            x, x, x, x, x, x, x, x,
-            x, x, x, x, x, x, x, x,
-            x, x, x, x, x, x, x, x,
-            x, x, x, x, x, x, x, x,
-            x, x, x, x, x, x, x, x
-        ]
-        sense.set_pixels(new_color)
-        c.color = x
-        return new_color
