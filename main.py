@@ -13,6 +13,8 @@ sense.clear()
 mode = ["preset", "joystick", "gyroscope", "time", "voice", "music"]
 mode_index = 0
 
+tempDebug = True
+
 # Classes ------------------
 class bcolors:
     HEADER = '\033[95m'
@@ -139,7 +141,8 @@ def joystick_move_middle(event):
 				execfile('set_nightlight.py')
 			except SystemExit as e:
 				if e.code == 255:
-					print(bcolors.ERROR+"sys.exit was called within set_nightlight.py"+bcolors.ENDC)
+					if tempDebug:
+						print(bcolors.ERROR+"sys.exit was called within set_nightlight.py"+bcolors.ENDC)
 				else:
 					sys.exit()
 
@@ -154,14 +157,15 @@ def exit(signal, frame):
 
 # Main program -------------
 if __name__ == '__main__':
-	print("Colors:")
-	print(bcolors.HEADER + "Header" + bcolors.ENDC)
-	print(bcolors.OKBLUE + "OKBlue" + bcolors.ENDC)
-	print(bcolors.OKGREEN + "OKGreen" + bcolors.ENDC)
-	print(bcolors.WARNING + "Warning" + bcolors.ENDC)
-	print(bcolors.ERROR + "Error" + bcolors.ENDC)
-	print(bcolors.BOLD + "Bold" + bcolors.ENDC)
-	print(bcolors.UNDERLINE + "Underline" + bcolors.ENDC)
+	if tempDebug:
+		print("Colors:")
+		print(bcolors.HEADER + "Header" + bcolors.ENDC)
+		print(bcolors.OKBLUE + "OKBlue" + bcolors.ENDC)
+		print(bcolors.OKGREEN + "OKGreen" + bcolors.ENDC)
+		print(bcolors.WARNING + "Warning" + bcolors.ENDC)
+		print(bcolors.ERROR + "Error" + bcolors.ENDC)
+		print(bcolors.BOLD + "Bold" + bcolors.ENDC)
+		print(bcolors.UNDERLINE + "Underline" + bcolors.ENDC)
 
 	sense.stick.direction_up = joystick_move
 	sense.stick.direction_down = joystick_move
@@ -176,15 +180,16 @@ if __name__ == '__main__':
 
 	signal.signal(signal.SIGINT, exit)
 	while True:
-		print(bcolors.HEADER+"Mode: "+bcolors.ENDC+`mode`)
-		print(bcolors.HEADER+"Mode index: "+bcolors.ENDC+`mode_index`)
-		print(bcolors.OKBLUE+"Joystick R: "+bcolors.ENDC+`j.joystick_r`)
-		print(bcolors.OKBLUE+"Joystick G: "+bcolors.ENDC+`j.joystick_g`)
-		print(bcolors.OKBLUE+"Joystick B: "+bcolors.ENDC+`j.joystick_b`)
-		print(bcolors.OKBLUE+"Joystick index: "+bcolors.ENDC+`j.joystick_index`)
-		print(bcolors.WARNING+"Color preset: "+bcolors.ENDC+`c.color_presets`)
-		print(bcolors.WARNING+"Color index: "+bcolors.ENDC+`c.color_index`)
-		print(bcolors.WARNING+"Color: "+bcolors.ENDC+`c.color`)
+		if tempDebug:
+			print(bcolors.HEADER+"Mode: "+bcolors.ENDC+`mode`)
+			print(bcolors.HEADER+"Mode index: "+bcolors.ENDC+`mode_index`)
+			print(bcolors.OKBLUE+"Joystick R: "+bcolors.ENDC+`j.joystick_r`)
+			print(bcolors.OKBLUE+"Joystick G: "+bcolors.ENDC+`j.joystick_g`)
+			print(bcolors.OKBLUE+"Joystick B: "+bcolors.ENDC+`j.joystick_b`)
+			print(bcolors.OKBLUE+"Joystick index: "+bcolors.ENDC+`j.joystick_index`)
+			print(bcolors.WARNING+"Color preset: "+bcolors.ENDC+`c.color_presets`)
+			print(bcolors.WARNING+"Color index: "+bcolors.ENDC+`c.color_index`)
+			print(bcolors.WARNING+"Color: "+bcolors.ENDC+`c.color`)
 		if mode[mode_index] == "gyroscope":
 			set_random_gyroscope_color()
 		elif mode[mode_index] == "time":
@@ -192,7 +197,8 @@ if __name__ == '__main__':
 				execfile('set_nightlight.py')
 			except SystemExit as e:
 				if e.code == 1:
-					print(bcolors.ERROR+"sys.exit was called within set_nightlight.py"+bcolors.ENDC)
+					if tempDebug:
+						print(bcolors.ERROR+"sys.exit was called within set_nightlight.py"+bcolors.ENDC)
 				else:
 					sys.exit()
 		sleep(0.05)
