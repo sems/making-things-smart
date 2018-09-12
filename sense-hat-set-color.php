@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>set color</title>
@@ -6,7 +6,7 @@
 	<body>
 		<?php
 			if($_GET) {
-				exec('python /var/www/html/web_interface.py '.$_GET['data']);
+				exec('python /home/pi/making-things-smart/web_interface.py '.$_GET['data']);
 			}
 		?>
 		<form action="/sense-hat-set-color.php" name="sense" method="get">
