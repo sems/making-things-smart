@@ -14,6 +14,9 @@ You need to install pytz
   * `sudo apt-get install python-pip`
 * Then install the python-dateutil package with:
   * `sudo pip install pytz`
+#### Install PHP
+* Install PHP7.0 package:
+  * `sudo apt-get install php7.0`
 
 ## Todo
 - [x] Finished colors.py
