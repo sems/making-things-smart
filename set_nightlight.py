@@ -18,7 +18,8 @@ san = "https://api.sunrise-sunset.org/json?lat=37.7749295&lng=-122.4194155&date=
 r = requests.get(zwolle)
 parsed = json.loads(r.content)
 results = parsed['results']
-print(json.dumps(parsed, indent=4, sort_keys=True))
+#print formated json data
+#print(json.dumps(parsed, indent=4, sort_keys=True))
 
 def toDataTime(datestring):
     parsed = dateutil.parser.parse(datestring) # ISO 8601 basic format
@@ -26,6 +27,10 @@ def toDataTime(datestring):
 
 sunrise = toDataTime(results['sunrise'])
 sunriseUnix = time.mktime(sunrise.timetuple())
+
+sunset = toDataTime(results['sunset'])
+sunsetUnix = time.mktime(sunset.timetuple())
+#print(sunrise, sunset)
 
 utc = datetime.datetime.utcnow()
 utcUnix = time.mktime(utc.timetuple())
@@ -36,3 +41,5 @@ if utcUnix > sunriseUnix:
 else:
     print("De zon is nog onder")
     sense.clear(orange)
+# sleep for 60 after refresh
+time.sleep(60)
