@@ -1,7 +1,7 @@
 from sense_hat import SenseHat
 import time
 import random
-import colors as c
+import variables.colors as c
 
 def set_color():
     sense = SenseHat()

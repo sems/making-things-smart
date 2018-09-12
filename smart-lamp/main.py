@@ -1,11 +1,10 @@
-import os, sys, signal
-import subprocess
+import os, sys, signal, subprocess
 from sense_hat import SenseHat
 from time import sleep
-from set_color import *
-from set_message import set_message
-import colors as c
-import joystick as j
+
+from libs.set_color import *
+import variables.colors as c
+import variables.joystick as j
 
 sense = SenseHat()
 sense.clear()
