@@ -105,7 +105,8 @@ if __name__ == '__main__':
 	signal.signal(signal.SIGINT, exit)
 	while True:
 		if tempDebug:
-			print(bcolors.HEADER+"Mode: "+bcolors.ENDC+`m.mode`)
+			# print(bcolors.HEADER+"Mode: "+bcolors.ENDC+`m.mode`)
+                        print(bcolors.HEADER+"Mode: "+bcolors.ENDC+`m.mode[m.mode_index]`)
 			print(bcolors.HEADER+"Mode index: "+bcolors.ENDC+`m.mode_index`)
 			print(bcolors.OKBLUE+"Joystick R: "+bcolors.ENDC+`j.joystick_r`)
 			print(bcolors.OKBLUE+"Joystick G: "+bcolors.ENDC+`j.joystick_g`)
@@ -128,6 +129,7 @@ if __name__ == '__main__':
 					sys.exit()
 		elif m.mode[m.mode_index] == "rainbow":
                         proceedRainbow()
-                elif m.mode[m.mode_index] == "mic":
-                        micMainLoop()
+                elif m.mode[m.mode_index] == "terminal":
+                        set_color_terminal()
+                        set_color()
 		sleep(0.04)

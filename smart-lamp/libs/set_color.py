@@ -20,6 +20,9 @@ def set_color():
         x, x, x, x, x, x, x, x
     ]
 
-    sense.set_pixels(new_color)
+    try:
+        sense.set_pixels(new_color)
+    except:
+        print("Error while setting pixels")
 
     return new_color

@@ -1,25 +1,25 @@
 #!/use/bin/python
 import sys
 from sense_hat import SenseHat
-from variables.colors import *
+import variables.colors as c
+import variables.mode as m
+from libs.set_color import *
 
 
 def set_color_terminal():
     sense = SenseHat()
 
-    color = input("Type an rgb color: ")
+    try:
+        color = input("Type an rgb color: ")
+    except (KeyboardInterrupt, SystemExit):
+        sys.exit()
+    except:
+        print("Changed mode...")
 
-    x = color
-
-    new_color = [
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x,
-        x, x, x, x, x, x, x, x
-    ]
-
-    sense.set_pixels(new_color)
+    try:
+        c.color = color
+        set_color()
+    except (KeyboardInterrupt, SystemExit):
+        sys.exit()
+    except:
+        print("Not a valid input, use it as following: <number>,<number>,<number> -> 255,255,255")
