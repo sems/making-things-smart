@@ -4,9 +4,12 @@ from time import sleep
 
 from libs.set_color import *
 
-from modes.gyroscope import *
+from modes.shake import *
 from modes.terminal import *
 from modes.rainbow import *
+from modes.mic import *
+from modes.joystick import *
+from modes.preset import *
 
 import variables.colors as c
 import variables.joystick as j
@@ -32,120 +35,40 @@ class bcolors:
 def joystick_move(event):
 	if event.action == "pressed":
 		if m.mode[m.mode_index] == "preset":
-			if event.direction == "up" or event.direction == "right":
-				if c.max_color_index == c.color_index:
-					c.color_index = c.min_color_index
-				else:
-					c.color_index += 1
-			elif event.direction == "down" or event.direction == "left":
-				if c.min_color_index == c.color_index:
-					c.color_index = c.max_color_index
-				else:
-					c.color_index -= 1
-			c.color = c.color_presets[c.color_index]
+			joystickPreset(event.direction)
 		elif m.mode[m.mode_index] == "joystick":
-			if event.direction == "up":
-				if j.joystick_index == 0:
-					if j.joystick_r == 255:
-						j.joystick_r = 0
-					else:
-						j.joystick_r += 1
-				if j.joystick_index == 1:
-					if j.joystick_g == 255:
-						j.joystick_g = 0
-					else:
-						j.joystick_g += 1
-				if j.joystick_index == 2:
-					if j.joystick_b == 255:
-						j.joystick_b = 0
-					else:
-						j.joystick_b += 1
-			elif event.direction == "down":
-				if j.joystick_index == 0:
-					if j.joystick_r == 0:
-						j.joystick_r = 255
-					else:
-						j.joystick_r -= 1
-				if j.joystick_index == 1:
-					if j.joystick_g == 0:
-						j.joystick_g = 255
-					else:
-						j.joystick_g -= 1
-				if j.joystick_index == 2:
-					if j.joystick_b == 0:
-						j.joystick_b = 255
-					else:
-						j.joystick_b -= 1
-			elif event.direction == "left":
-				if j.joystick_index == 0:
-					j.joystick_index = 2
-				else:
-					j.joystick_index -= 1
-			elif event.direction == "right":
-				if j.joystick_index == 2:
-					j.joystick_index = 0
-				else:
-					j.joystick_index += 1
-			c.color = (j.joystick_r, j.joystick_g, j.joystick_b)
+			joystickJoystick(event.direction)
 	elif event.action == "held" and m.mode[m.mode_index] == "joystick":
-		if event.direction == "up":
-			if j.joystick_index == 0:
-				if j.joystick_r == 255:
-					j.joystick_r = 0
-				else:
-					j.joystick_r += 1
-			if j.joystick_index == 1:
-				if j.joystick_g == 255:
-					j.joystick_g = 0
-				else:
-					j.joystick_g += 1
-			if j.joystick_index == 2:
-				if j.joystick_b == 255:
-					j.joystick_b = 0
-				else:
-					j.joystick_b += 1
-		elif event.direction == "down":
-			if j.joystick_index == 0:
-				if j.joystick_r == 0:
-					j.joystick_r = 255
-				else:
-					j.joystick_r -= 1
-			if j.joystick_index == 1:
-				if j.joystick_g == 0:
-					j.joystick_g = 255
-				else:
-					j.joystick_g -= 1
-			if j.joystick_index == 2:
-				if j.joystick_b == 0:
-					j.joystick_b = 255
-				else:
-					j.joystick_b -= 1
-		c.color = (j.joystick_r, j.joystick_g, j.joystick_b)
+		joystickJoystickHeld(event.direction)
 	set_color()
+
 def joystick_move_middle(event):
 	global gyroscope_check
 	if event.action == "pressed":
 		m.mode_index += 1
-		if m.mode[m.mode_index] == "voice" or m.mode[m.mode_index] == "music":
-			m.mode_index = 0
-		if m.mode[m.mode_index] == "preset":
-			c.color = c.color_presets[c.color_index]
-			set_color()
-		elif m.mode[m.mode_index] == "joystick":
-			j.joystick_index = 0
-			c.color = (j.joystick_r, j.joystick_g, j.joystick_b)
-			set_color()
-		elif m.mode[m.mode_index] == "gyroscope":
-			set_random_gyroscope_color()
-		elif m.mode[m.mode_index] == "time":
-			try:
-				execfile('modes/sun.py')
-			except SystemExit as e:
-				if e.code == 255:
-					if tempDebug:
-						print(bcolors.ERROR+"sys.exit was called within sun.py"+bcolors.ENDC)
-				else:
-					sys.exit()
+        while m.mode[m.mode_index] in m.mode_not_usable:
+            if m.mode_index == len(m.mode) - 1:
+                m.mode_index = 0
+            else:
+                m.mode_index += 1
+	if m.mode[m.mode_index] == "preset":
+		c.color = c.color_presets[c.color_index]
+		set_color()
+	elif m.mode[m.mode_index] == "joystick":
+		j.joystick_index = 0
+		c.color = (j.joystick_r, j.joystick_g, j.joystick_b)
+		set_color()
+	elif m.mode[m.mode_index] == "shake":
+		set_random_gyroscope_color()
+	elif m.mode[m.mode_index] == "time":
+		try:
+			execfile('modes/sun.py')
+		except SystemExit as e:
+			if e.code == 255:
+				if tempDebug:
+					print(bcolors.ERROR+"sys.exit was called within sun.py"+bcolors.ENDC)
+			else:
+				sys.exit()
 
 def clear():
 	sense.clear()
@@ -191,7 +114,7 @@ if __name__ == '__main__':
 			print(bcolors.WARNING+"Color preset: "+bcolors.ENDC+`c.color_presets`)
 			print(bcolors.WARNING+"Color index: "+bcolors.ENDC+`c.color_index`)
 			print(bcolors.WARNING+"Color: "+bcolors.ENDC+`c.color`)
-		if m.mode[m.mode_index] == "gyroscope":
+		if m.mode[m.mode_index] == "shake":
 			set_random_gyroscope_color()
 			set_color()
 		elif m.mode[m.mode_index] == "time":
@@ -204,5 +127,7 @@ if __name__ == '__main__':
 				else:
 					sys.exit()
 		elif m.mode[m.mode_index] == "rainbow":
-            proceedRainbow()
+                        proceedRainbow()
+                elif m.mode[m.mode_index] == "mic":
+                        micMainLoop()
 		sleep(0.04)

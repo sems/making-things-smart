@@ -24,7 +24,8 @@ You need to install pytz
 - [x] Finished set_color.py
 - [x] Add 'set_color()' in main while loop (for set_random_gyroscope_color.py [colors.py])
 - [x] Look at 'set_message.py' if no use, delete
-- [ ] Add escape for rainbow.py
+- [x] Add escape for rainbow.py
+- [x] Finished rainbow
 - [ ] Finish main.py
 - [ ] Finish set_nightlight.py
 - [ ] Finish web
