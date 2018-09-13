@@ -6,15 +6,14 @@ from libs.set_color import *
 
 from modes.gyroscope import *
 from modes.terminal import *
+from modes.rainbow import *
 
 import variables.colors as c
 import variables.joystick as j
+import variables.mode as m
 
 sense = SenseHat()
 sense.clear()
-
-mode = ["preset", "joystick", "gyroscope", "time", "rainbow", "hue", "voice", "music"]
-mode_index = 0
 
 tempDebug = True
 
@@ -31,9 +30,8 @@ class bcolors:
 
 # Functions ----------------
 def joystick_move(event):
-	global mode, mode_index
 	if event.action == "pressed":
-		if mode[mode_index] == "preset":
+		if m.mode[m.mode_index] == "preset":
 			if event.direction == "up" or event.direction == "right":
 				if c.max_color_index == c.color_index:
 					c.color_index = c.min_color_index
@@ -45,7 +43,7 @@ def joystick_move(event):
 				else:
 					c.color_index -= 1
 			c.color = c.color_presets[c.color_index]
-		elif mode[mode_index] == "joystick":
+		elif m.mode[m.mode_index] == "joystick":
 			if event.direction == "up":
 				if j.joystick_index == 0:
 					if j.joystick_r == 255:
@@ -89,7 +87,7 @@ def joystick_move(event):
 				else:
 					j.joystick_index += 1
 			c.color = (j.joystick_r, j.joystick_g, j.joystick_b)
-	elif event.action == "held" and mode[mode_index] == "joystick":
+	elif event.action == "held" and m.mode[m.mode_index] == "joystick":
 		if event.direction == "up":
 			if j.joystick_index == 0:
 				if j.joystick_r == 255:
@@ -125,27 +123,27 @@ def joystick_move(event):
 		c.color = (j.joystick_r, j.joystick_g, j.joystick_b)
 	set_color()
 def joystick_move_middle(event):
-	global mode, mode_index, gyroscope_check
+	global gyroscope_check
 	if event.action == "pressed":
-		mode_index += 1
-		if mode[mode_index] == "voice" or mode[mode_index] == "music":
-			mode_index = 0
-		if mode[mode_index] == "preset":
+		m.mode_index += 1
+		if m.mode[m.mode_index] == "voice" or m.mode[m.mode_index] == "music":
+			m.mode_index = 0
+		if m.mode[m.mode_index] == "preset":
 			c.color = c.color_presets[c.color_index]
 			set_color()
-		elif mode[mode_index] == "joystick":
+		elif m.mode[m.mode_index] == "joystick":
 			j.joystick_index = 0
 			c.color = (j.joystick_r, j.joystick_g, j.joystick_b)
 			set_color()
-		elif mode[mode_index] == "gyroscope":
+		elif m.mode[m.mode_index] == "gyroscope":
 			set_random_gyroscope_color()
-		elif mode[mode_index] == "time":
+		elif m.mode[m.mode_index] == "time":
 			try:
 				execfile('modes/sun.py')
 			except SystemExit as e:
 				if e.code == 255:
 					if tempDebug:
-						print(bcolors.ERROR+"sys.exit was called within set_nightlight.py"+bcolors.ENDC)
+						print(bcolors.ERROR+"sys.exit was called within sun.py"+bcolors.ENDC)
 				else:
 					sys.exit()
 
@@ -153,7 +151,7 @@ def clear():
 	sense.clear()
 
 def exit(signal, frame):
-	mode_index = 0
+	m.mode_index = 0
 	clear()
 	print(bcolors.OKGREEN+"Bye!"+bcolors.ENDC)
 	sys.exit(0)
@@ -184,8 +182,8 @@ if __name__ == '__main__':
 	signal.signal(signal.SIGINT, exit)
 	while True:
 		if tempDebug:
-			print(bcolors.HEADER+"Mode: "+bcolors.ENDC+`mode`)
-			print(bcolors.HEADER+"Mode index: "+bcolors.ENDC+`mode_index`)
+			print(bcolors.HEADER+"Mode: "+bcolors.ENDC+`m.mode`)
+			print(bcolors.HEADER+"Mode index: "+bcolors.ENDC+`m.mode_index`)
 			print(bcolors.OKBLUE+"Joystick R: "+bcolors.ENDC+`j.joystick_r`)
 			print(bcolors.OKBLUE+"Joystick G: "+bcolors.ENDC+`j.joystick_g`)
 			print(bcolors.OKBLUE+"Joystick B: "+bcolors.ENDC+`j.joystick_b`)
@@ -193,18 +191,18 @@ if __name__ == '__main__':
 			print(bcolors.WARNING+"Color preset: "+bcolors.ENDC+`c.color_presets`)
 			print(bcolors.WARNING+"Color index: "+bcolors.ENDC+`c.color_index`)
 			print(bcolors.WARNING+"Color: "+bcolors.ENDC+`c.color`)
-		if mode[mode_index] == "gyroscope":
+		if m.mode[m.mode_index] == "gyroscope":
 			set_random_gyroscope_color()
 			set_color()
-		elif mode[mode_index] == "time":
+		elif m.mode[m.mode_index] == "time":
 			try:
 				execfile('modes/sun.py')
 			except SystemExit as e:
-				if e.code == 1:
+				if e.code == 255:
 					if tempDebug:
-						print(bcolors.ERROR+"sys.exit was called within set_nightlight.py"+bcolors.ENDC)
+						print(bcolors.ERROR+"sys.exit was called within sun.py"+bcolors.ENDC)
 				else:
 					sys.exit()
-		elif mode[mode_index] == "rainbow":
-			execfile('modes/rainbow.py')
-		sleep(0.05)
+		elif m.mode[m.mode_index] == "rainbow":
+            proceedRainbow()
+		sleep(0.04)

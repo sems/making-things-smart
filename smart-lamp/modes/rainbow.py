@@ -1,6 +1,9 @@
 from colorsys import hsv_to_rgb
 from time import sleep
 from sense_hat import SenseHat
+
+import variables.mode as m
+
 sense = SenseHat()
 
 hues = [
@@ -17,9 +20,9 @@ hues = [
 def scale(v):
     return int(v * 255)
 
-while True:
+def proceedRainbow():
+    global hues
     hues = [(h + 0.01) % 1.0 for h in hues]
     pixels = [hsv_to_rgb(h, 1.0, 1.0) for h in hues]
     pixels = [(scale(r), scale(g), scale(b)) for r, g, b in pixels]
     sense.set_pixels(pixels)
-    sleep(0.04)
