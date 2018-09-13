@@ -7,7 +7,6 @@ from libs.set_color import *
 from modes.shake import *
 from modes.terminal import *
 from modes.rainbow import *
-from modes.mic import *
 from modes.joystick import *
 from modes.preset import *
 
