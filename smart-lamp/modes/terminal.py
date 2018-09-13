@@ -17,8 +17,11 @@ def set_color_terminal():
         print("Changed mode...")
 
     try:
-        c.color = color
-        set_color()
+        if color == "close" or color == "next":
+            m.mode_index += 1
+        else:
+            c.color = color
+            set_color()
     except (KeyboardInterrupt, SystemExit):
         sys.exit()
     except:

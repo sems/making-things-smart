@@ -55,7 +55,7 @@ def joystickJoystick(direction):
             j.joystick_index += 1
     c.color = (j.joystick_r, j.joystick_g, j.joystick_b)
 def joystickJoystickHeld(direction):
-    if event.direction == "up":
+    if direction == "up":
         if j.joystick_index == 0:
             if j.joystick_r == 255:
                 j.joystick_r = 0
@@ -71,7 +71,7 @@ def joystickJoystickHeld(direction):
                 j.joystick_b = 0
             else:
                 j.joystick_b += 1
-    elif event.direction == "down":
+    elif direction == "down":
         if j.joystick_index == 0:
             if j.joystick_r == 0:
                 j.joystick_r = 255
