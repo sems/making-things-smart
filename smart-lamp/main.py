@@ -7,6 +7,7 @@ from libs.set_color import *
 from modes.shake import *
 from modes.terminal import *
 from modes.rainbow import *
+from modes.circle import *
 from modes.joystick import *
 from modes.preset import *
 
@@ -127,8 +128,10 @@ if __name__ == '__main__':
 				else:
 					sys.exit()
 		elif m.mode[m.mode_index] == "rainbow":
-                        proceedRainbow()
-                elif m.mode[m.mode_index] == "terminal":
-                        set_color_terminal()
-                        set_color()
+            proceedRainbow()
+        elif m.mode[m.mode_index] == "circle":
+            proceedCircle()
+    	elif m.mode[m.mode_index] == "terminal":
+            set_color_terminal()
+            set_color()
 		sleep(0.04)

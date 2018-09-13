@@ -2,8 +2,6 @@ from colorsys import hsv_to_rgb
 from time import sleep
 from sense_hat import SenseHat
 
-import variables.mode as m
-
 sense = SenseHat()
 
 hues = [
