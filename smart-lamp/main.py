@@ -128,10 +128,10 @@ if __name__ == '__main__':
 				else:
 					sys.exit()
 		elif m.mode[m.mode_index] == "rainbow":
-            proceedRainbow()
-        elif m.mode[m.mode_index] == "circle":
-            proceedCircle()
-    	elif m.mode[m.mode_index] == "terminal":
-            set_color_terminal()
-            set_color()
+	            proceedRainbow()
+        	elif m.mode[m.mode_index] == "circle":
+        	    proceedCircle()
+    		elif m.mode[m.mode_index] == "terminal":
+        	    set_color_terminal()
+        	    set_color()
 		sleep(0.04)
