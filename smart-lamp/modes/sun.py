@@ -21,10 +21,11 @@ try:
 except:
     print("Error when getting request!")
     sys.exit(255)
+
 parsed = json.loads(r.content)
 results = parsed['results']
-#print formated json data
-print(json.dumps(parsed, indent=4, sort_keys=True)) ## Comment this line
+
+#print(json.dumps(parsed, indent=4, sort_keys=True)) ## Comment this line
 
 # Functions
 # @staticmethod
@@ -47,15 +48,13 @@ civil_twilight_end_unix = time.mktime(civil_twilight_end.timetuple())
 
 utc = datetime.datetime.utcnow()
 
-# utc = "2018-09-12 04:58:14.495419"
 utc_unix = time.mktime(utc.timetuple())
-utc_unix = 1536773235.0
-print civil_twilight_end_unix
+
 if sunrise_unix <= utc_unix <= sunset_unix:
     print("Het is dag")
     sense.clear(white)
 else:
-    # morning
+    # Morning
     if civil_twilight_begin_unix <= utc_unix <= sunrise_unix:
         dif_sunrise = (sunrise_unix - civil_twilight_begin_unix) / 10
         print dif_sunrise
@@ -74,7 +73,7 @@ else:
         #sense.clear(255,0,255)
         # print("Sleepy sleepy, need to go to bed soon!")
 
-    #evening
+    # Evening
     if sunset_unix <= utc_unix <= civil_twilight_end_unix:
         dif_sunset = (civil_twilight_end_unix - sunset_unix) / 10
         
@@ -88,5 +87,7 @@ else:
                 sense.clear(orange_hues[x])
                 print(x)
                 break
-    #print("Nighty night, sleep well!")
-    #sense.clear(orange)
+    # Nighttime
+    if (utc_unix < civil_twilight_begin_unix) or (utc_unix > civil_twilight_end_unix):
+        print("Nighty night, sleep well!")
+        sense.clear(orange)
