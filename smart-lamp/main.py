@@ -36,13 +36,13 @@ def joystick_move(event):
 	if event.action == "pressed":
 		if m.mode[m.mode_index] == "preset":
 			joystickPreset(event.direction)
-            set_color()
+	                set_color()
 		elif m.mode[m.mode_index] == "joystick":
 			joystickJoystick(event.direction)
-            set_color()
+            		set_color()
 	elif event.action == "held" and m.mode[m.mode_index] == "joystick":
 		joystickJoystickHeld(event.direction)
-        set_color()
+       	        set_color()
 
 def joystick_move_middle(event):
 	global gyroscope_check
