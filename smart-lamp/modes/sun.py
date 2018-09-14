@@ -6,6 +6,8 @@ import json
 import dateutil.parser
 import pytz
 
+import variables.console as con
+
 sense = SenseHat()
 
 white = (255, 255, 255)
@@ -51,7 +53,8 @@ utc = datetime.datetime.utcnow()
 utc_unix = time.mktime(utc.timetuple())
 
 if sunrise_unix <= utc_unix <= sunset_unix:
-    print("Het is dag")
+    # print("Het is dag")
+    con.sun = "Het is dag"
     sense.clear(white)
 else:
     # Morning
@@ -63,7 +66,7 @@ else:
         if civil_twilight_begin_unix <= utc_unix <= (civil_twilight_begin_unix + dif_sunrise):
             sense.clear(orange01)
             print("1")
-            
+
         for x in range(1, 10):
             if (civil_twilight_begin_unix + (dif_sunrise * x)) <= utc_unix <= (civil_twilight_begin_unix + (dif_sunrise * (x+1))):
                 sense.clear(orange_hues[x])
@@ -76,7 +79,7 @@ else:
     # Evening
     if sunset_unix <= utc_unix <= civil_twilight_end_unix:
         dif_sunset = (civil_twilight_end_unix - sunset_unix) / 10
-        
+
         if sunset_unix <= utc_unix <= (sunset_unix + dif_sunset):
             sense.clear(orange10)
             print("10")
@@ -89,5 +92,6 @@ else:
                 break
     # Nighttime
     if (utc_unix < civil_twilight_begin_unix) or (utc_unix > civil_twilight_end_unix):
-        print("Nighty night, sleep well!")
+        # print("Nighty night, sleep well!")
+        con.sun = "Nighty night, sleep well!"
         sense.clear(orange)

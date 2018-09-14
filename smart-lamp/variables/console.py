@@ -1,0 +1,1 @@
+sun = "Het is dag"

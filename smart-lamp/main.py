@@ -3,6 +3,7 @@ from sense_hat import SenseHat
 from time import sleep
 
 from libs.set_color import *
+from libs.clear_console import *
 
 from modes.shake import *
 from modes.terminal import *
@@ -14,6 +15,7 @@ from modes.preset import *
 import variables.colors as c
 import variables.joystick as j
 import variables.mode as m
+import variables.console as con
 
 sense = SenseHat()
 sense.clear()
@@ -107,6 +109,7 @@ if __name__ == '__main__':
 	signal.signal(signal.SIGINT, exit)
 	while True:
 		if tempDebug:
+            clear_console()
 			# print(bcolors.HEADER+"Mode: "+bcolors.ENDC+`m.mode`)
                         print(bcolors.HEADER+"Mode: "+bcolors.ENDC+`m.mode[m.mode_index]`)
 			print(bcolors.HEADER+"Mode index: "+bcolors.ENDC+`m.mode_index`)
@@ -114,9 +117,11 @@ if __name__ == '__main__':
 			print(bcolors.OKBLUE+"Joystick G: "+bcolors.ENDC+`j.joystick_g`)
 			print(bcolors.OKBLUE+"Joystick B: "+bcolors.ENDC+`j.joystick_b`)
 			print(bcolors.OKBLUE+"Joystick index: "+bcolors.ENDC+`j.joystick_index`)
-			print(bcolors.WARNING+"Color preset: "+bcolors.ENDC+`c.color_presets`)
+			# print(bcolors.WARNING+"Color preset: "+bcolors.ENDC+`c.color_presets`)
 			print(bcolors.WARNING+"Color index: "+bcolors.ENDC+`c.color_index`)
 			print(bcolors.WARNING+"Color: "+bcolors.ENDC+`c.color`)
+            if m.mode[m.mode_index] == "time":
+                print(con.sun)
 		if m.mode[m.mode_index] == "shake":
 			set_random_gyroscope_color()
 			set_color()
