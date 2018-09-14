@@ -109,7 +109,7 @@ if __name__ == '__main__':
 	signal.signal(signal.SIGINT, exit)
 	while True:
 		if tempDebug:
-            clear_console()
+	                clear_console()
 			# print(bcolors.HEADER+"Mode: "+bcolors.ENDC+`m.mode`)
                         print(bcolors.HEADER+"Mode: "+bcolors.ENDC+`m.mode[m.mode_index]`)
 			print(bcolors.HEADER+"Mode index: "+bcolors.ENDC+`m.mode_index`)
@@ -120,8 +120,8 @@ if __name__ == '__main__':
 			# print(bcolors.WARNING+"Color preset: "+bcolors.ENDC+`c.color_presets`)
 			print(bcolors.WARNING+"Color index: "+bcolors.ENDC+`c.color_index`)
 			print(bcolors.WARNING+"Color: "+bcolors.ENDC+`c.color`)
-            if m.mode[m.mode_index] == "time":
-                print(con.sun)
+            		if m.mode[m.mode_index] == "time":
+            		        print(con.sun)
 		if m.mode[m.mode_index] == "shake":
 			set_random_gyroscope_color()
 			set_color()
