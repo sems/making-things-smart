@@ -17,15 +17,3 @@ You need to install pytz
 #### Install PHP
 * Install PHP7.0 package:
   * `sudo apt-get install php7.0`
-
-## Todo
-- [x] Finished colors.py
-- [x] Finished joystick.py
-- [x] Finished set_color.py
-- [x] Add 'set_color()' in main while loop (for set_random_gyroscope_color.py [colors.py])
-- [x] Look at 'set_message.py' if no use, delete
-- [ ] Add escape for rainbow.py
-- [ ] Finish main.py
-- [ ] Finish set_nightlight.py
-- [ ] Finish web
-- [ ] Rename 'hue' module
